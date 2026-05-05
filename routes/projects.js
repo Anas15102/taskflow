@@ -50,9 +50,13 @@ router.post('/', [
 
 router.get('/', auth, async (req, res) => {
   try {
-    const projects = await Project.find({
+    // If user is admin (global admin role), show all projects
+    // Otherwise, show only projects where user is a member
+    let query = {
       'members.user': req.user.userId
-    })
+    };
+
+    const projects = await Project.find(query)
     .populate('owner', 'name email')
     .populate('members.user', 'name email')
     .sort({ createdAt: -1 });
