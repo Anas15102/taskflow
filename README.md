@@ -1,166 +1,155 @@
 # TaskFlow - Team Task Manager
 
-A full-stack web application for team collaboration and task management with role-based access control.
+A web-based task management system for teams to collaborate on projects and track progress.
 
 ## Features
 
-- **User Authentication**: Secure signup and login system
-- **Project Management**: Create and manage multiple projects
-- **Team Collaboration**: Add team members to projects with role-based permissions (Admin/Member)
-- **Task Management**: Create, assign, and track tasks with status updates
-- **Dashboard**: Overview of all tasks with status tracking and overdue alerts
-- **Role-Based Access**: Different permissions for admins and members
-- **Real-time Updates**: Track task progress with visual kanban board
+- User authentication with JWT
+- Create and manage projects
+- Add team members to projects
+- Create tasks and assign them to team members
+- Track task status (To Do, In Progress, Completed)
+- Set task priorities and due dates
+- Dashboard with task statistics
+- Role-based permissions (Admin/Member)
 
 ## Tech Stack
 
-**Frontend:**
-- React.js
-- React Router for navigation
-- Axios for API calls
-- CSS3 for styling
+**Frontend:** React, React Router, Axios  
+**Backend:** Node.js, Express  
+**Database:** MongoDB with Mongoose  
+**Authentication:** JWT with bcrypt
 
-**Backend:**
-- Node.js
-- Express.js
-- MongoDB with Mongoose
-- JWT for authentication
-- bcryptjs for password hashing
-
-## Installation
+## Setup
 
 ### Prerequisites
-- Node.js (v14 or higher)
-- MongoDB database (local or cloud)
+- Node.js installed
+- MongoDB Atlas account (or local MongoDB)
 
-### Setup
+### Installation
 
-1. Clone the repository:
+1. Clone the repo
 ```bash
 git clone <your-repo-url>
 cd team-task-manager
 ```
 
-2. Install backend dependencies:
+2. Install dependencies
 ```bash
 npm install
+cd client && npm install
 ```
 
-3. Install frontend dependencies:
-```bash
-cd client
-npm install
-cd ..
-```
-
-4. Create a `.env` file in the root directory:
+3. Create `.env` file in root directory
 ```
 PORT=5000
 MONGODB_URI=your_mongodb_connection_string
-JWT_SECRET=your_secret_key_here
+JWT_SECRET=your_secret_key
 NODE_ENV=production
 ```
 
-5. Build the frontend:
+4. Build the frontend
 ```bash
 npm run build
 ```
 
-6. Start the application:
+5. Start the server
 ```bash
 npm start
 ```
 
-The app will be available at `http://localhost:5000`
+The app will run on `http://localhost:5000`
 
-## Development Mode
+## Development
 
-To run in development mode with hot reload:
+Run backend and frontend separately:
 
 ```bash
 # Terminal 1 - Backend
 npm run dev
 
-# Terminal 2 - Frontend
+# Terminal 2 - Frontend  
 cd client
 npm start
 ```
 
-## Deployment on Railway
+## Deployment
 
-1. Create a new project on [Railway](https://railway.app)
-2. Connect your GitHub repository
-3. Add environment variables in Railway dashboard:
-   - `MONGODB_URI`
-   - `JWT_SECRET`
-   - `NODE_ENV=production`
-4. Railway will automatically detect and deploy your app
+### MongoDB Setup
+1. Create a free cluster on MongoDB Atlas
+2. Create a database user
+3. Whitelist all IPs (0.0.0.0/0)
+4. Copy the connection string
 
-## API Endpoints
-
-### Authentication
-- `POST /api/auth/signup` - Register new user
-- `POST /api/auth/login` - Login user
-- `GET /api/auth/me` - Get current user
-
-### Projects
-- `GET /api/projects` - Get all user projects
-- `POST /api/projects` - Create new project
-- `GET /api/projects/:id` - Get project details
-- `PUT /api/projects/:id` - Update project
-- `DELETE /api/projects/:id` - Delete project
-- `POST /api/projects/:id/members` - Add member to project
-
-### Tasks
-- `GET /api/tasks` - Get all tasks (with filters)
-- `POST /api/tasks` - Create new task
-- `GET /api/tasks/:id` - Get task details
-- `PUT /api/tasks/:id` - Update task
-- `DELETE /api/tasks/:id` - Delete task
-
-### Users
-- `GET /api/users` - Get all users
-- `GET /api/users/search` - Search users
+### Railway Deployment
+1. Push code to GitHub
+2. Create new project on Railway
+3. Connect your GitHub repo
+4. Add environment variables:
+   - MONGODB_URI
+   - JWT_SECRET
+   - NODE_ENV=production
+5. Deploy
 
 ## Usage
 
-1. **Sign Up**: Create an account with your name, email, and password
-2. **Create Project**: Start a new project and add team members
-3. **Add Tasks**: Create tasks, assign them to team members, set priorities and due dates
-4. **Track Progress**: Use the kanban board to move tasks through different stages
-5. **Monitor Dashboard**: View all your tasks and identify overdue items
+1. Sign up for an account
+2. Create a project
+3. Add team members (search by email)
+4. Create tasks within the project
+5. Assign tasks and set priorities
+6. Update task status as you progress
+7. Check dashboard for overview
+
+## API Endpoints
+
+### Auth
+- POST `/api/auth/signup` - Register
+- POST `/api/auth/login` - Login
+- GET `/api/auth/me` - Get current user
+
+### Projects
+- GET `/api/projects` - Get user's projects
+- POST `/api/projects` - Create project
+- GET `/api/projects/:id` - Get project details
+- PUT `/api/projects/:id` - Update project
+- DELETE `/api/projects/:id` - Delete project
+- POST `/api/projects/:id/members` - Add member
+
+### Tasks
+- GET `/api/tasks` - Get tasks
+- POST `/api/tasks` - Create task
+- GET `/api/tasks/:id` - Get task
+- PUT `/api/tasks/:id` - Update task
+- DELETE `/api/tasks/:id` - Delete task
+
+### Users
+- GET `/api/users` - Get all users
+- GET `/api/users/search` - Search users
 
 ## Project Structure
 
 ```
-team-task-manager/
-├── client/                 # React frontend
-│   ├── public/
-│   └── src/
-│       ├── components/     # React components
-│       ├── App.js
-│       └── index.js
-├── models/                 # MongoDB models
-│   ├── User.js
-│   ├── Project.js
-│   └── Task.js
-├── routes/                 # API routes
-│   ├── auth.js
-│   ├── projects.js
-│   ├── tasks.js
-│   └── users.js
-├── middleware/             # Custom middleware
-│   ├── auth.js
-│   └── admin.js
-├── server.js              # Express server
-├── package.json
-└── README.md
+├── client/              # React frontend
+│   ├── src/
+│   │   ├── components/  # React components
+│   │   └── App.js
+│   └── package.json
+├── models/              # Mongoose models
+├── routes/              # Express routes
+├── middleware/          # Auth middleware
+├── server.js           # Express server
+└── package.json
 ```
+
+## Notes
+
+- Projects are private by default - add members to share
+- Dashboard shows task statistics (create tasks to see numbers)
+- Both admins and members can create projects
+- Admins have full control over their projects
+- Members can create and manage tasks
 
 ## License
 
 MIT
-
-## Author
-
-Built for team collaboration and productivity

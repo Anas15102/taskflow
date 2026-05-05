@@ -1,7 +1,7 @@
 {
   "name": "team-task-manager",
   "version": "1.0.0",
-  "description": "Team collaboration and task management platform",
+  "description": "Task management app for teams",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
@@ -9,7 +9,7 @@
     "client": "cd client && npm start",
     "build": "cd client && npm install && npm run build"
   },
-  "keywords": ["task", "management", "team", "collaboration"],
+  "keywords": ["task", "management"],
   "author": "",
   "license": "MIT",
   "dependencies": {
